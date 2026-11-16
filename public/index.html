@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>90-Second Account Brief | Clay AI & Handshake Showcase</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Top Navigation & Metrics Bar -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="brand-badge" id="brand-badge">⚡ 90s BRIEF</div>
+        <div>
+          <h1 class="brand-title">90-Second Account Brief</h1>
+          <p class="brand-subtitle">Claygent AI Research • Direct &amp; Verify Framework • Handshake AI Showcase</p>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Pills -->
+      <div class="metrics-pill-group">
+        <div class="metric-pill" id="pill-word-count">
+          <span class="metric-label">WORDS</span>
+          <span class="metric-val" id="header-words">182</span>
+          <span class="metric-sub">/ 200 MAX</span>
+        </div>
+        <div class="metric-pill" id="pill-read-time">
+          <span class="metric-label">READ TIME</span>
+          <span class="metric-val" id="header-time">84s</span>
+          <span class="metric-sub">~90s FIT</span>
+        </div>
+        <div class="metric-pill pill-verified">
+          <span class="metric-label">AUDIT</span>
+          <span class="metric-val">100%</span>
+          <span class="metric-sub">SEC CHECKED</span>
+        </div>
+        <button class="btn btn-outline btn-sm" id="search-modal-trigger" onclick="openSearchModal()" title="Universal Portfolio Search (Ctrl + K)">
+          🔍 Search (Ctrl+K)
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="runInBrowserDiagnostics()" title="Run live automated diagnostics on all endpoints">
+          ⚡ Auto-Check All
+        </button>
+        <button class="btn btn-secondary btn-sm" onclick="exportDossier('markdown')" title="Download formatted executive markdown dossier">
+          📥 Export MD
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="exportDossier('csv')" title="Download CRM / Clay CSV format">
+          📑 Export CSV
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="openPresentationModal()" title="View full-screen 6-slide executive pitch deck">
+          📽️ Slide Deck
+        </button>
+        <a class="btn btn-outline btn-sm" id="btn-print-cheat-sheet" href="/print/snap" target="_blank" title="Open print-ready executive 1-page PDF cheat sheet">
+          🖨️ PDF 1-Pager
+        </a>
+        <button class="btn btn-primary btn-sm" onclick="downloadAllPortfolioBundle()" title="Fetch all accounts and download complete dossier">
+          📦 Fetch All
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="view-tabs-nav">
+    <div class="nav-inner">
+      <div class="tab-list">
+        <button class="nav-tab active" data-tab="brief-tab" id="tab-btn-brief">📄 90s Brief Card</button>
+        <button class="nav-tab" data-tab="pacer-tab" id="tab-btn-pacer">⏱️ 90s Rehearsal &amp; Audio</button>
+        <button class="nav-tab" data-tab="flash-tab" id="tab-btn-flash">📇 Flashcard Deck</button>
+        <button class="nav-tab" data-tab="compare-tab" id="tab-btn-compare">⚖️ Portfolio Matrix</button>
+        <button class="nav-tab" data-tab="quiz-tab" id="tab-btn-quiz">🎓 Readiness Quiz</button>
+        <button class="nav-tab" data-tab="tactics-tab" id="tab-btn-tactics">🎯 Interview Tactics</button>
+        <button class="nav-tab" data-tab="battle-tab" id="tab-btn-battle">⚔️ Battlecards &amp; MEDDPICC</button>
+        <button class="nav-tab" data-tab="market-tab" id="tab-btn-market">📊 Market Analysis</button>
+        <button class="nav-tab" data-tab="calc-tab" id="tab-btn-calc">🧮 Deal ROI Calculator</button>
+        <button class="nav-tab" data-tab="audit-tab" id="tab-btn-audit">🔍 Direct &amp; Verify Audit</button>
+        <button class="nav-tab" data-tab="clay-tab" id="tab-btn-clay">🧪 Clay Table Simulator</button>
+        <button class="nav-tab" data-tab="custom-tab" id="tab-btn-custom">✨ Build Any Company</button>
+        <button class="nav-tab" data-tab="showcase-tab" id="tab-btn-showcase">🏆 Handshake Submission</button>
+      </div>
+
+      <!-- Company Switcher with 5 accounts -->
+      <div class="company-switcher">
+        <label for="company-select">Target Company:</label>
+        <select id="company-select">
+          <option value="snap" selected>Snap Inc. (snap.com)</option>
+          <option value="stripe">Stripe, Inc. (stripe.com)</option>
+          <option value="datadog">Datadog, Inc. (datadoghq.com)</option>
+          <option value="openai">OpenAI (openai.com)</option>
+          <option value="nvidia">NVIDIA Corporation (nvidia.com)</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-container">
+    <!-- Meeting Context Callout -->
+    <section class="context-card" id="context-banner">
+      <div class="context-grid">
+        <div class="context-main">
+          <div class="context-meta-row">
+            <span class="badge badge-yellow" id="ctx-company">Snap Inc.</span>
+            <span class="badge badge-ticker" id="ctx-ticker">NYSE: SNAP</span>
+            <span class="badge badge-outline" id="ctx-domain"><a href="https://snap.com" target="_blank" rel="noopener">snap.com ↗</a></span>
+            <span class="badge badge-indigo" id="ctx-role">Role: Account Manager</span>
+            <span class="badge badge-emerald" id="ctx-industry">Ad Sales &amp; AR</span>
+          </div>
+          <div class="goal-line-box">
+            <span class="goal-label">Conversation Goal:</span>
+            <p class="goal-text" id="ctx-goal">"I'm bringing this brief to an interview at Snap Inc. for the Account Manager role."</p>
+            <button class="btn-copy-sm" onclick="copyGoalLine()" title="Copy Goal Line">Copy Goal</button>
+          </div>
+        </div>
+        <div class="context-actions">
+          <button class="btn btn-primary" onclick="switchToTab('pacer-tab')">▶ 90s Practice</button>
+          <button class="btn btn-audio" onclick="playSpeechAudio()" id="btn-quick-listen">🎧 Listen Aloud</button>
+          <button class="btn btn-secondary" onclick="copyFullBrief()">📋 Copy Brief</button>
+          <button class="btn btn-secondary" onclick="window.print()">🖨️ Print / PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 1: 90-Second Brief Card -->
+    <section id="brief-tab" class="tab-pane active">
+      <div class="card-sheet">
+        <div class="sheet-header">
+          <div class="sheet-title-group">
+            <div class="sheet-super">OFFICIAL EXECUTIVE ONE-PAGER</div>
+            <h2 class="sheet-company-name" id="sheet-company-title">Snap Inc. Account Brief</h2>
+            <p class="sheet-tagline" id="sheet-tagline">Strictly 5 items • Under 200 words • Read in ~90 seconds</p>
+          </div>
+          <div class="sheet-badge-group">
+            <div class="sheet-counter-box">
+              <span class="counter-num" id="sheet-word-count">182</span>
+              <span class="counter-desc">Total Words (<span class="pass-text">&lt; 200 Target</span>)</span>
+            </div>
+            <div class="sheet-counter-box">
+              <span class="counter-num" id="sheet-read-seconds">84s</span>
+              <span class="counter-desc">Speaking Pace (@ 130 wpm)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="brief-items-stack" id="brief-items-container">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <div class="sheet-footer">
+          <div class="methodology-note">
+            <strong>Direct &amp; Verify Rule:</strong> Every fact confirmed against primary sources before inclusion. Never repeat unverified AI output.
+          </div>
+          <div class="sheet-actions">
+            <button class="btn btn-outline" onclick="exportMarkdown()">Download Markdown</button>
+            <button class="btn btn-primary" onclick="switchToTab('showcase-tab')">Export for Handshake ↗</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: 90-Second Rehearsal & Teleprompter & Audio -->
+    <section id="pacer-tab" class="tab-pane">
+      <div class="pacer-dashboard">
+        <div class="timer-card">
+          <div class="timer-header">
+            <h3>90-Second Rehearsal &amp; Audio Pacer</h3>
+            <p>Practice delivering this brief smoothly before your interview. Use the countdown timer or hit <strong>Listen Aloud</strong> to hear the browser read it at the ideal 130 WPM cadence!</p>
+          </div>
+
+          <div class="timer-display-wrap">
+            <div class="countdown-circle">
+              <svg class="progress-ring" width="220" height="220">
+                <circle class="progress-ring__circle-bg" stroke="#1e293b" stroke-width="12" fill="transparent" r="95" cx="110" cy="110"/>
+                <circle class="progress-ring__circle" id="timer-ring" stroke="#FACC15" stroke-width="12" fill="transparent" r="95" cx="110" cy="110"/>
+              </svg>
+              <div class="timer-text-overlay">
+                <span class="timer-digits" id="timer-digits">01:30</span>
+                <span class="timer-sublabel" id="timer-state-label">READY</span>
+              </div>
+            </div>
+
+            <div class="timer-controls">
+              <button class="btn btn-huge btn-primary" id="btn-timer-start" onclick="toggleTimer()">▶ Practice Speaking</button>
+              <button class="btn btn-huge btn-audio" id="btn-audio-listen" onclick="toggleSpeechAudio()">🎧 Listen Aloud (TTS)</button>
+              <button class="btn btn-huge btn-record" id="btn-record-pitch" onclick="toggleVoiceRecording()">🎙️ Record Practice</button>
+              <button class="btn btn-huge btn-outline" id="btn-timer-reset" onclick="resetTimer()">↺ Reset</button>
+              
+              <div class="audio-controls-row">
+                <label>Speed:
+                  <select id="speech-rate-select" onchange="updateSpeechRate()">
+                    <option value="0.8">0.8x (Deliberate Practice)</option>
+                    <option value="0.9">0.9x (Articulate Pace)</option>
+                    <option value="1.0" selected>1.0x (130 WPM Natural)</option>
+                    <option value="1.15">1.15x (Brisk Cadence)</option>
+                    <option value="1.25">1.25x (Executive Pace)</option>
+                    <option value="1.5">1.5x (Speed Rehearsal)</option>
+                  </select>
+                </label>
+                <label>
+                  <input type="checkbox" id="sound-checkbox" checked> 🔔 Chime on 0:00
+                </label>
+              </div>
+
+              <!-- Rehearsal Audio Playback Bar -->
+              <div id="record-playback-wrap" class="playback-bar" style="display:none;">
+                <span class="playback-label">Your Recorded Practice:</span>
+                <audio id="recorded-audio" controls></audio>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Progress Bar -->
+          <div class="pacer-progress-bar-wrap">
+            <div class="pacer-progress-bar" id="pacer-progress-bar"></div>
+          </div>
+          <div class="pacer-stats-row">
+            <span>Pacer Progress: <strong id="pacer-percent">0%</strong></span>
+            <span>Current Word: <strong id="pacer-word-idx">0</strong> / <strong id="pacer-word-total">182</strong></span>
+            <span>Target Velocity: <strong>~130 WPM</strong></span>
+          </div>
+        </div>
+
+        <!-- Teleprompter Script Card -->
+        <div class="teleprompter-card">
+          <div class="teleprompter-header">
+            <h4>Live Teleprompter &amp; Spoken Transcript</h4>
+            <span class="hint-pill">Words synchronize with the timer / audio playback</span>
+          </div>
+          <div class="teleprompter-content" id="teleprompter-box">
+            <!-- Words injected here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Interactive Flashcard Study Mode -->
+    <section id="flash-tab" class="tab-pane">
+      <div class="flashcard-dashboard">
+        <div class="flashcard-header-card">
+          <div class="flashcard-header-info">
+            <span class="badge badge-yellow">RAPID RECALL ENGINE</span>
+            <h3>Interactive Flashcard Study Deck</h3>
+            <p>Active recall practice across elevator pitches, monetization models, 2024 catalysts, competitor kill-shots, and MEDDPICC.</p>
+          </div>
+          <div class="flashcard-mastery-pill">
+            <span>Mastery:</span>
+            <span id="fc-mastery-count">0 / 7 Mastered</span>
+          </div>
+        </div>
+
+        <!-- 3D Flashcard Scene -->
+        <div class="flashcard-scene" onclick="flipFlashcard()">
+          <div class="flashcard-inner" id="flashcard-card-element">
+            <!-- Front Face -->
+            <div class="flashcard-face flashcard-front">
+              <div class="flashcard-meta-row">
+                <span class="flashcard-category-badge" id="fc-category-badge">Elevator Pitch</span>
+                <span class="flashcard-index-indicator" id="fc-card-indicator">Card 1 / 7</span>
+              </div>
+              <div class="flashcard-body-wrap">
+                <div class="flashcard-prompt-text" id="fc-prompt-text">
+                  How does the company explain what it does in plain English?
+                </div>
+              </div>
+              <div class="flashcard-hint-text">
+                <span>💡 Click card or tap <kbd>Space</kbd> to reveal verified answer</span>
+              </div>
+            </div>
+
+            <!-- Back Face -->
+            <div class="flashcard-face flashcard-back">
+              <div class="flashcard-meta-row">
+                <span class="flashcard-category-badge" id="fc-back-category-badge">Verified Model</span>
+                <span class="flashcard-index-indicator" id="fc-back-indicator">Verified Answer</span>
+              </div>
+              <div class="flashcard-body-wrap">
+                <div class="flashcard-answer-text" id="fc-answer-text">
+                  Loading answer...
+                </div>
+              </div>
+              <div class="flashcard-meta-row">
+                <span class="flashcard-source-citation" id="fc-source-citation">Source: Verified 10-K / Newsroom</span>
+                <span class="flashcard-hint-text">Tap <kbd>Space</kbd> or click to flip back</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="flashcard-controls-bar">
+          <div class="flashcard-nav-btns">
+            <button class="btn btn-outline" id="btn-fc-prev" onclick="prevFlashcard()" title="Previous Card (ArrowLeft)">
+              ← Prev
+            </button>
+            <span style="font-weight: 700; color: #cbd5e1; font-family: var(--font-mono); font-size: 0.9rem;">
+              Card <strong id="fc-current-num">1</strong> of <strong id="fc-total-num">7</strong>
+            </span>
+            <button class="btn btn-primary" id="btn-fc-next" onclick="nextFlashcard()" title="Next Card (ArrowRight)">
+              Next →
+            </button>
+          </div>
+
+          <div class="flashcard-extra-actions">
+            <button class="btn btn-outline btn-sm" id="btn-fc-flip" onclick="flipFlashcard()">
+              🔄 Flip (Space)
+            </button>
+            <button class="btn btn-secondary btn-sm" id="btn-fc-master" onclick="toggleCardMastery()">
+              ⭐ Mark Mastered
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="shuffleFlashcards()">
+              🔀 Shuffle
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Cross-Company Comparison Matrix -->
+    <section id="compare-tab" class="tab-pane">
+      <div class="compare-dashboard">
+        <div class="compare-header-card">
+          <div class="badge badge-indigo">PORTFOLIO INTELLIGENCE</div>
+          <h3>5-Company Enterprise Comparison Matrix</h3>
+          <p>Side-by-side institutional benchmark comparing TAM, monetization models, Rule of 40 scores, retention, key 2024 catalysts, competitor kill-shots, and MEDDPICC economic buyers.</p>
+        </div>
+
+        <div class="compare-table-responsive">
+          <table class="compare-table" id="portfolio-compare-table">
+            <thead>
+              <tr>
+                <th style="min-width: 170px;">Metric / Dimension</th>
+                <th>Snap Inc.</th>
+                <th>Stripe, Inc.</th>
+                <th>Datadog, Inc.</th>
+                <th>OpenAI</th>
+                <th>NVIDIA Corporation</th>
+              </tr>
+            </thead>
+            <tbody id="compare-table-body">
+              <!-- Dynamically populated by JS from /api/compare -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Interactive Candidate Readiness Quiz -->
+    <section id="quiz-tab" class="tab-pane">
+      <div class="quiz-dashboard">
+        <div class="quiz-header-card">
+          <div class="quiz-header-meta">
+            <span class="badge badge-emerald">ACTIVE ASSESSMENT</span>
+            <h3 id="quiz-title">Candidate Readiness Quiz: Snap Inc.</h3>
+            <p>5 verified multiple-choice questions assessing your recall on business models, 2024 news dates, unit metrics, competitor kill-shots, and deal qualification.</p>
+          </div>
+          <div class="quiz-score-badge" id="quiz-score-badge" style="display: none;">
+            <span class="score-label">SCORE:</span>
+            <span class="score-number" id="quiz-score-display">0 / 5</span>
+          </div>
+        </div>
+
+        <!-- Quiz Questions List Container -->
+        <div class="quiz-questions-wrap" id="quiz-questions-container">
+          <!-- Dynamically populated by JS from /api/quiz/:id -->
+        </div>
+
+        <div class="quiz-submit-bar">
+          <button class="btn btn-primary" id="btn-submit-quiz" onclick="submitQuizInUI()">
+            ⚡ Grade My Quiz &amp; Show Explanations
+          </button>
+          <button class="btn btn-outline" onclick="resetQuizInUI()">
+            ↺ Reset Quiz
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: Interview Tactics & Role Play -->
+    <section id="tactics-tab" class="tab-pane">
+      <div class="tactics-dashboard">
+        <div class="tactics-header-card">
+          <div class="badge badge-emerald">INTERVIEW DELIVERY BLUEPRINT</div>
+          <h3>How to Deliver This 90-Second Brief in a Live Meeting</h3>
+          <p>Sales and solutions leaders don't just want candidates who memorize trivia—they look for candidates who connect business models to strategic questions.</p>
+        </div>
+
+        <div class="tactics-grid">
+          <div class="tactics-card">
+            <div class="tactics-step-num">STAGE 1: THE 30-SECOND PIVOT</div>
+            <h4>When Asked: "Tell me what you know about our company"</h4>
+            <p class="tactics-expl">Never recite a boring Wikipedia timeline. Combine Item 1 (What they do) and Item 2 (How they make money) in under 30 seconds.</p>
+            <div class="script-quote-box" id="tactics-stage-1">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <div class="tactics-card">
+            <div class="tactics-step-num">STAGE 2: THE RECENT NEWS ANCHOR</div>
+            <h4>When Asked: "Why do you want to join right now?"</h4>
+            <p class="tactics-expl">Anchor your enthusiasm in Item 3: a verified 2024 development that shows you're paying attention to strategic momentum.</p>
+            <div class="script-quote-box" id="tactics-stage-2">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <div class="tactics-card span-2">
+            <div class="tactics-step-num">STAGE 3: THE EXECUTIVE CLOSING QUESTION</div>
+            <h4>When Asked: "Do you have any questions for us?" (The Item 5 Closer)</h4>
+            <p class="tactics-expl">Most candidates ask generic questions like "What is the culture like?". Delivering Item 5 immediately demonstrates commercial curiosity and strategic fluency.</p>
+            <div class="script-quote-box highlight-gold" id="tactics-stage-3">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- STAGE 4: Executive Objection Simulator -->
+        <div class="objection-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-rose">EXECUTIVE DEFENSE PLAYBOOK</div>
+            <h3>Handling Tough Business &amp; Competitive Objections</h3>
+            <p>Interviewers test whether you understand the company's real market vulnerabilities. Here is how to defend their commercial model with verified facts:</p>
+          </div>
+          <div class="objections-grid" id="tactics-objections-container">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- STAGE 5: Interactive AI Mock Interview Answer Evaluator -->
+        <div class="mock-evaluator-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-emerald">AI INTERVIEW COACH</div>
+            <h3>Stage 5: Live Mock Interview Answer Evaluator</h3>
+            <p>Practice answering tough interview questions in your own words. The engine grades metric density, speaking duration, verbal filler words, and delivers actionable coaching feedback.</p>
+          </div>
+
+          <div class="evaluator-card">
+            <div class="eval-input-grid">
+              <div class="eval-control-group">
+                <label for="eval-question-select"><strong>Select Target Interview Question:</strong></label>
+                <select id="eval-question-select" class="eval-select" onchange="onEvaluatorQuestionChange()">
+                  <!-- Dynamically populated per company -->
+                </select>
+              </div>
+              <div class="eval-actions-row">
+                <button class="btn btn-outline btn-sm" onclick="loadSampleAnswer()">✨ Load Top-Scoring Sample</button>
+                <button class="btn btn-outline btn-sm" onclick="clearEvaluatorAnswer()">🧹 Clear</button>
+              </div>
+            </div>
+
+            <div class="eval-textarea-wrap">
+              <textarea id="eval-answer-input" class="eval-textarea" rows="4" placeholder="Type or dictate your verbal response here... (Tip: cite verified metrics from Item 2 or Item 3 to earn top marks)" oninput="updateEvaluatorInputStats()"></textarea>
+              <div class="eval-text-meta">
+                <span>Words: <strong id="eval-word-count">0</strong></span>
+                <span>Paced Duration: <strong id="eval-speaking-time">~0s</strong> (@ 130 WPM)</span>
+                <span class="hint">Optimal Interview Window: 45–120 words (30–60s)</span>
+              </div>
+            </div>
+
+            <div class="eval-submit-row">
+              <button class="btn btn-primary" id="btn-assess-answer" onclick="submitAnswerForEvaluation()">
+                ⚡ Assess My Response
+              </button>
+            </div>
+
+            <!-- Evaluator Results Container -->
+            <div id="eval-results-container" class="eval-results-panel" style="display: none;">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Competitive Battlecards & MEDDPICC Deal Qualification -->
+    <section id="battle-tab" class="tab-pane">
+      <div class="battle-dashboard">
+        <!-- Header Banner -->
+        <div class="battle-header-card">
+          <div class="battle-badge-row">
+            <span class="badge badge-yellow" id="battle-company-badge">Snap Inc.</span>
+            <span class="badge badge-indigo">COMPETITIVE BATTLECARDS &amp; MEDDPICC DEAL QUALIFICATION</span>
+          </div>
+          <h2 id="battle-title">Competitive Battlecards &amp; Enterprise Sales Strategy</h2>
+          <p id="battle-subtitle">Side-by-side win/loss differentiation, MEDDPICC qualification frameworks, 30-60-90 day onboarding roadmap, and buyer persona playbooks.</p>
+        </div>
+
+        <!-- Section 1: Head-to-Head Competitive Battlecards -->
+        <div class="battle-cards-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-emerald">WIN / LOSS DIFFERENTIATION</div>
+            <h3>Head-to-Head Competitive Battlecards</h3>
+            <p>Direct comparisons against top industry rivals with landmine questions and executive kill-shot talk tracks.</p>
+          </div>
+          <div class="battlecards-grid" id="battlecards-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Section 2: MEDDPICC Enterprise Deal Qualification Matrix -->
+        <div class="meddpicc-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-indigo">ENTERPRISE QUALIFICATION</div>
+            <h3>MEDDPICC Deal Qualification Framework</h3>
+            <p>The gold-standard sales qualification methodology used by top enterprise software leaders to inspect deals.</p>
+          </div>
+          <div class="meddpicc-grid" id="meddpicc-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Section 3: 30-60-90 Day Executive Onboarding Blueprint -->
+        <div class="onboarding-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-yellow">RAMP ROADMAP</div>
+            <h3 id="onboarding-heading">30-60-90 Day Candidate Onboarding Plan</h3>
+            <p>Clear, role-specific phased deliverables to establish early authority, drive pipeline, and exceed quota.</p>
+          </div>
+          <div class="onboarding-phases-grid" id="onboarding-phases-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Section 4: Ideal Customer Profile & Buying Personas -->
+        <div class="icp-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-emerald">TARGET ACCOUNT UNIVERSE</div>
+            <h3>Ideal Customer Profile (ICP) &amp; Buying Committee</h3>
+            <p>Firmographics, commercial buying triggers, and tailored value propositions for each executive persona.</p>
+          </div>
+          <div class="icp-grid" id="icp-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="battle-footer-actions">
+          <button class="btn btn-primary" onclick="exportDossier('markdown')">📥 Download Markdown Dossier</button>
+          <button class="btn btn-secondary" onclick="exportDossier('json')">📦 Export JSON Bundle</button>
+          <button class="btn btn-outline" onclick="copyBattlecardSummary()">📋 Copy Battlecard Summary</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Market & Competitive Intelligence -->
+    <section id="market-tab" class="tab-pane">
+      <div class="market-dashboard">
+        <!-- Market Header Banner -->
+        <div class="market-header-card">
+          <div class="market-badge-row">
+            <span class="badge badge-yellow" id="market-company-badge">Snap Inc.</span>
+            <span class="badge badge-indigo">MARKET &amp; COMPETITIVE INTELLIGENCE</span>
+          </div>
+          <h2 id="market-title">Snap Inc. Market Dynamics &amp; Competitor Landscape</h2>
+          <p id="market-subtitle">Total Addressable Market (TAM), key rivals, defensible moats, and growth catalysts.</p>
+        </div>
+
+        <!-- Top Overview Grid: TAM & Market Share -->
+        <div class="market-overview-grid">
+          <div class="market-stat-card">
+            <div class="stat-super">TOTAL ADDRESSABLE MARKET (TAM)</div>
+            <div class="stat-val-highlight" id="market-tam-val">$700B+ TAM</div>
+            <p class="stat-desc" id="market-tam-desc"></p>
+          </div>
+
+          <div class="market-stat-card">
+            <div class="stat-super">MARKET SHARE &amp; POSITIONING</div>
+            <div class="stat-val-highlight color-emerald" id="market-share-val">Dominant in AR</div>
+            <p class="stat-desc" id="market-share-desc"></p>
+          </div>
+
+          <div class="market-stat-card span-2-col">
+            <div class="stat-super">MACRO TRENDS &amp; INDUSTRY DYNAMICS</div>
+            <div class="macro-trend-content" id="market-macro-trends"></div>
+          </div>
+        </div>
+
+        <!-- Section: Quantitative TAM / SAM / SOM Sizing Funnel -->
+        <div class="market-sizing-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-emerald">MARKET SIZING METHODOLOGY</div>
+            <h3>TAM • SAM • SOM Addressable Market Funnel</h3>
+            <p>Quantitative sizing from total macroeconomic universe down to near-term capture targets.</p>
+          </div>
+          <div class="sizing-funnel-grid" id="market-sizing-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Section: Industry Positioning & Analyst Consensus -->
+        <div class="positioning-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-indigo">ANALYST POSITIONING</div>
+            <h3>Competitive Quadrant &amp; Industry Standing</h3>
+            <p>Consensus evaluation from tier-1 industry research analysts (Gartner, Forrester, eMarketer).</p>
+          </div>
+          <div class="positioning-grid" id="market-positioning-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Section: Institutional Financial Efficiency Scorecard -->
+        <div class="efficiency-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-yellow">EFFICIENCY SCORECARD</div>
+            <h3>Rule of 40, CAC Payback &amp; Net Revenue Retention (NRR)</h3>
+            <p>Institutional software benchmarks evaluating capital efficiency, payback velocity, and expansion power.</p>
+          </div>
+          <div class="efficiency-grid" id="market-efficiency-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Financial Unit Economics & Monetization Breakdown -->
+        <div class="financials-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-emerald">FINANCIAL UNIT ECONOMICS</div>
+            <h3>Revenue Engine &amp; Capital Efficiency Breakdown</h3>
+            <p>Verified financial metrics, recurring ARR run-rates, and operating margins.</p>
+          </div>
+          
+          <!-- Stat Pills -->
+          <div class="fin-stat-pills-row" id="financials-stat-pills">
+            <!-- Injected by JS -->
+          </div>
+
+          <!-- Deep Financial Metrics Grid -->
+          <div class="fin-details-grid">
+            <div class="fin-detail-card">
+              <span class="fin-card-label">Annual Revenue &amp; Growth</span>
+              <h4 id="fin-annual-rev">--</h4>
+              <p id="fin-rev-growth" class="fin-subtext">--</p>
+            </div>
+            <div class="fin-detail-card">
+              <span class="fin-card-label">ARPU / TPV / Retention</span>
+              <h4 id="fin-key-metric">--</h4>
+              <p id="fin-key-subtext" class="fin-subtext">--</p>
+            </div>
+            <div class="fin-detail-card">
+              <span class="fin-card-label">Margins &amp; Profitability</span>
+              <h4 id="fin-gross-margin">--</h4>
+              <p id="fin-margin-subtext" class="fin-subtext">--</p>
+            </div>
+            <div class="fin-detail-card">
+              <span class="fin-card-label">Capital &amp; Cloud Efficiency</span>
+              <h4 id="fin-cap-eff">--</h4>
+              <p id="fin-cap-subtext" class="fin-subtext">--</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Porter's Five Forces Strategic Industry Assessment -->
+        <div class="porters-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-indigo">STRATEGIC FORCES</div>
+            <h3>Porter's Five Forces Industry Assessment</h3>
+            <p>Structural analysis of competitive intensity, buyer leverage, supplier power, and threat barriers.</p>
+          </div>
+          <div class="porters-grid" id="market-porters-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Executive SWOT Analysis Matrix -->
+        <div class="swot-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-yellow">EXECUTIVE SWOT</div>
+            <h3>Strengths, Weaknesses, Opportunities &amp; Threats</h3>
+            <p>Comprehensive strategic balance sheet for executive briefings and interview alignment.</p>
+          </div>
+          <div class="swot-grid" id="market-swot-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Head-to-Head Competitor Comparison Matrix -->
+        <div class="competitor-section">
+          <div class="section-title-wrap">
+            <h3>Head-to-Head Key Competitors</h3>
+            <p>How this company differentiates itself and wins market share against industry rivals.</p>
+          </div>
+          <div class="competitors-grid" id="market-competitors-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Strategic Moats & Growth Catalysts Grid -->
+        <div class="moats-catalysts-grid">
+          <div class="moats-card">
+            <h4>🛡️ Defensible Strategic Moats</h4>
+            <ul class="moats-list" id="market-moats-list">
+              <!-- Injected by JS -->
+            </ul>
+          </div>
+
+          <div class="catalysts-card">
+            <h4>🚀 2024–2026 Growth Catalysts</h4>
+            <ul class="catalysts-list" id="market-catalysts-list">
+              <!-- Injected by JS -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Section: Market Sensitivity & Stress-Testing Scenarios -->
+        <div class="scenarios-section">
+          <div class="section-title-wrap">
+            <div class="badge badge-rose">STRESS-TESTING SCENARIOS</div>
+            <h3>Market Sensitivity &amp; 3-Year Trajectory Analysis</h3>
+            <p>Evaluating bull-case catalysts, base-case steady growth, and bear-case downside risk buffers.</p>
+          </div>
+          <div class="scenarios-grid" id="market-scenarios-container">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="market-footer-actions">
+          <button class="btn btn-primary" onclick="copyMarketCheatSheet()">📋 Copy Market Cheat Sheet</button>
+          <button class="btn btn-outline" onclick="switchToTab('brief-tab')">Back to 90s Brief Card ↗</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: Deal ROI & Value Calculator -->
+    <section id="calc-tab" class="tab-pane">
+      <div class="calculator-dashboard">
+        <div class="calc-header-banner">
+          <div class="calc-header-icon">🧮</div>
+          <div>
+            <div class="badge badge-emerald" id="calc-role-badge">Enterprise Sales Enablement</div>
+            <h2 id="calc-title">Interactive Enterprise Deal Value &amp; ROI Calculator</h2>
+            <p id="calc-subtitle">Simulate real-world business impact, pipeline deal sizes, and cost savings to bring compelling ROI figures to your executive interviews.</p>
+          </div>
+        </div>
+
+        <div class="calc-main-grid">
+          <div class="calc-inputs-card">
+            <div class="calc-card-header">
+              <h3>Deal Parameters &amp; Assumptions</h3>
+              <button class="btn btn-sm btn-outline" onclick="resetCalculatorDefaults()">↺ Reset Defaults</button>
+            </div>
+            <div class="calc-inputs-list" id="calc-inputs-container">
+              <!-- Dynamically populated sliders & inputs -->
+            </div>
+          </div>
+
+          <div class="calc-results-card">
+            <div class="calc-card-header">
+              <h3>Projected Enterprise Value &amp; ROI</h3>
+              <span class="badge badge-indigo">Real-Time Simulation</span>
+            </div>
+            <div class="calc-metrics-grid" id="calc-metrics-container">
+              <!-- Dynamically populated output metric pills -->
+            </div>
+
+            <div class="calc-talk-track-box">
+              <div class="talk-track-header">
+                <h4>🎯 Executive Interview Talk Track (ROI Closer)</h4>
+                <button class="btn btn-sm btn-secondary" onclick="copyCalculatorTalkTrack()">📋 Copy Talk Track</button>
+              </div>
+              <p class="talk-track-text" id="calc-talk-track-text">
+                <!-- Dynamically populated talk track -->
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: Direct & Verify Audit -->
+    <section id="audit-tab" class="tab-pane">
+      <div class="audit-dashboard">
+        <div class="callout-banner">
+          <div class="callout-icon">🛡️</div>
+          <div>
+            <h4>The Two Halves of Direct and Verify</h4>
+            <p><strong>Direct:</strong> Your objective and prompt steering steer what facts Claygent uncovers. <br>
+            <strong>Verify:</strong> You open the company's SEC filings, investor relations, and newsroom to confirm dates, numbers, and business models before saying them in an interview.</p>
+          </div>
+        </div>
+
+        <div class="digging-spotlight-card">
+          <div class="spotlight-badge">HANDSHAKE SHOWCASE QUESTION</div>
+          <h3>"Which Claim Needed the Most Digging to Verify?"</h3>
+          <p class="spotlight-lead" id="audit-digging-lead">
+            Snap's announcement of its fifth-generation Spectacles smart glasses and its commercial distribution model.
+          </p>
+          <div class="spotlight-body" id="audit-digging-story">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <div class="audit-table-card">
+          <div class="audit-table-header">
+            <h3>Fact-Checking Audit Trail (100% Primary Sources)</h3>
+            <p>Click any row to inspect source evidence and see the distinction between unverified drafts and verified facts.</p>
+          </div>
+          <div class="table-responsive">
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Claim in Brief</th>
+                  <th>Primary Source Checked</th>
+                  <th>Status</th>
+                  <th>Verification Evidence &amp; Findings</th>
+                </tr>
+              </thead>
+              <tbody id="audit-table-body">
+                <!-- Injected by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: Interactive Clay Table Simulator -->
+    <section id="clay-tab" class="tab-pane">
+      <div class="clay-lab">
+        <div class="clay-table-mockup">
+          <div class="clay-table-header">
+            <div class="clay-brand-wrap">
+              <span class="clay-logo">🟣 Clay Workbook: "Interview Research"</span>
+              <span class="clay-agent-pill">Claygent (Argon Model)</span>
+            </div>
+            <div class="credit-counter-wrap">
+              <button class="btn btn-emerald btn-sm" onclick="autoPlayClayWorkflow()" title="Auto-execute complete 2-pass Direct & Verify workflow">
+                ⚡ Auto-Run Claygent Workflow
+              </button>
+              <div class="credit-counter">
+                🔋 Available Credits: <strong id="clay-credits-display">200</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="clay-table-interactive">
+            <table class="clay-sim-table">
+              <thead>
+                <tr>
+                  <th style="width: 45px;">#</th>
+                  <th>Company Name</th>
+                  <th>Website Domain</th>
+                  <th>Goal Line (Context)</th>
+                  <th style="width: 200px;">Claygent AI Action</th>
+                </tr>
+              </thead>
+              <tbody id="clay-sim-tbody">
+                <!-- Injected rows with live run buttons -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Live Claygent Terminal Execution Console -->
+          <div class="clay-execution-console" id="clay-console" style="display: none;">
+            <div class="console-header">
+              <span>Claygent Argon Agent Execution Stream</span>
+              <span class="status-running" id="console-status">RUNNING...</span>
+            </div>
+            <pre class="console-body" id="console-output"></pre>
+          </div>
+        </div>
+
+        <!-- Prompt Evolution -->
+        <div class="prompt-evolution-grid">
+          <div class="prompt-card">
+            <div class="prompt-tag tag-v1">PASS 1: INITIAL PROMPT (DIRECT)</div>
+            <h4>Claygent Prompt v1</h4>
+            <pre class="code-box" id="clay-prompt-v1"></pre>
+          </div>
+
+          <div class="prompt-card card-weakness">
+            <div class="prompt-tag tag-weakness">CRITICAL WEAK SPOT DETECTED</div>
+            <h4>Human Verification Finding</h4>
+            <div class="weakness-box" id="clay-weakness-box"></div>
+            <div class="refine-line-box">
+              <strong>Refinement Added to Prompt:</strong>
+              <code id="clay-refinement-instruction"></code>
+            </div>
+          </div>
+
+          <div class="prompt-card card-v2">
+            <div class="prompt-tag tag-v2">PASS 2: REFINED PROMPT (VERIFIED)</div>
+            <h4>Refined Claygent Prompt v2</h4>
+            <pre class="code-box" id="clay-prompt-v2"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: Build Any Company Brief -->
+    <section id="custom-tab" class="tab-pane">
+      <div class="custom-builder-card">
+        <div class="builder-header">
+          <h3>Custom Account Brief Generator &amp; Constraint Validator</h3>
+          <p>Targeting another company? Enter its details below to generate a Claygent-ready prompt, then check your drafted brief against the 200-word and 90-second constraints in real time!</p>
+        </div>
+
+        <div class="builder-form-grid">
+          <div class="form-group">
+            <label for="custom-comp-name">Company Name</label>
+            <input type="text" id="custom-comp-name" placeholder="e.g. Figma" value="Figma, Inc.">
+          </div>
+          <div class="form-group">
+            <label for="custom-domain">Website Domain</label>
+            <input type="text" id="custom-domain" placeholder="e.g. figma.com" value="figma.com">
+          </div>
+          <div class="form-group">
+            <label for="custom-role">Target Role</label>
+            <input type="text" id="custom-role" placeholder="e.g. Product Specialist" value="Enterprise Solutions Specialist">
+          </div>
+          <div class="form-group">
+            <label for="custom-context">Meeting Type</label>
+            <select id="custom-context">
+              <option value="an interview">An Interview</option>
+              <option value="a coffee chat">A Coffee Chat</option>
+              <option value="a career fair">A Career Fair</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Generated Conversation Goal Line:</label>
+          <div class="goal-preview-box" id="custom-goal-preview"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Generated Claygent Prompt (Ready to paste into Clay):</label>
+          <pre class="code-box" id="custom-generated-prompt"></pre>
+          <button class="btn btn-secondary" onclick="copyCustomPrompt()">📋 Copy Prompt for Clay</button>
+        </div>
+
+        <hr class="divider">
+        <h4>Paste or Edit Your 5-Item Brief for Real-Time Validation:</h4>
+        <div class="form-group">
+          <textarea id="custom-brief-input" rows="7" placeholder="Paste your 5 items here to validate word count and 90-second pacing..."></textarea>
+        </div>
+
+        <div class="validation-feedback-box" id="custom-validation-box">
+          <!-- Feedback rendered live -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: Handshake Showcase Submission -->
+    <section id="showcase-tab" class="tab-pane">
+      <div class="showcase-card">
+        <div class="showcase-header">
+          <div class="showcase-badge-pill">HANDSHAKE AI MISSION STEP</div>
+          <h2>Share to Your Profile &amp; Stand Out</h2>
+          <p>Show off your project to your network and potential employers on the <strong>Handshake AI Showcase</strong> to earn your <strong>AI Project Builder Badge</strong>.</p>
+        </div>
+
+        <div class="showcase-form-mock">
+          <!-- Field 1: Title -->
+          <div class="form-group">
+            <div class="field-label-row">
+              <label>Project Title</label>
+              <button class="btn-copy-sm" onclick="copyField('submission-title')">Copy Title</button>
+            </div>
+            <input type="text" id="submission-title" class="input-readonly" readonly value="90-Second Account Brief: Snap Inc. (Enterprise &amp; AR Ad Strategy)">
+          </div>
+
+          <!-- Field 2: Cover Image / Preview -->
+          <div class="form-group">
+            <div class="field-label-row">
+              <label>Preview Image (3:2 Ratio, at least 1200px wide)</label>
+              <a href="cover-card.svg" download="handshake-cover-card.svg" class="btn-copy-sm">⬇ Download 1200x800 SVG</a>
+            </div>
+            <div class="cover-card-preview-wrap">
+              <img src="cover-card.svg" alt="Handshake Showcase 90-Second Account Brief Cover Card" class="cover-card-img">
+            </div>
+          </div>
+
+          <!-- Field 3: Description -->
+          <div class="form-group">
+            <div class="field-label-row">
+              <label>Description (<span id="char-counter">498</span> / 500 Max Characters)</label>
+              <button class="btn-copy-sm" onclick="copyField('submission-desc')">Copy Description</button>
+            </div>
+            <textarea id="submission-desc" class="textarea-readonly" rows="5" readonly></textarea>
+            <div class="char-bar-wrap">
+              <div class="char-bar" id="char-progress-bar" style="width: 99.6%;"></div>
+            </div>
+          </div>
+
+          <!-- Field 4: Digging Reflection -->
+          <div class="form-group">
+            <div class="field-label-row">
+              <label>Which claim needed the most digging to verify? (Showcase Submission Question)</label>
+              <button class="btn-copy-sm" onclick="copyField('submission-digging')">Copy Response</button>
+            </div>
+            <textarea id="submission-digging" class="textarea-readonly" rows="5" readonly></textarea>
+          </div>
+
+          <!-- Final CTA -->
+          <div class="showcase-footer-actions">
+            <div class="showcase-links">
+              <button class="btn btn-primary" onclick="copyEntireSubmissionBundle()">
+                📋 Copy All Submission Fields
+              </button>
+              <button class="btn btn-secondary" onclick="exportSubmissionJson()">
+                ⬇ Export JSON Package
+              </button>
+              <button class="btn btn-emerald" onclick="downloadAllPortfolioBundle()">
+                📦 Download All Portfolio (JSON + MD)
+              </button>
+              <a href="https://app.joinhandshake.com/ai-showcase" target="_blank" rel="noopener" class="btn btn-outline">
+                Open Handshake AI Showcase ↗
+              </a>
+              <button class="btn btn-outline" onclick="runAutomatedTestsInUI()">
+                🧪 Run Verification Self-Test
+              </button>
+            </div>
+            <div id="ui-test-status" class="test-status-pill"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Universal Search Modal (Command Palette Ctrl+K) -->
+  <div id="search-modal" class="modal-backdrop" style="display: none;" onclick="handleSearchBackdropClick(event)">
+    <div class="modal-card modal-search-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="badge badge-indigo">PORTFOLIO INTELLIGENCE</span>
+          <h3>Universal Search &amp; Quick Switcher</h3>
+        </div>
+        <button class="btn-close" onclick="closeSearchModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="search-query-input" class="search-input" placeholder="Type to search briefs, battlecards, objections, financials... (e.g. Blackwell, Bridge, AR, MTTR, 157B)" oninput="onSearchInput(this.value)" autocomplete="off">
+        </div>
+        <div class="search-hints-row">
+          <span>Shortcuts: <kbd>↑</kbd> <kbd>↓</kbd> navigate • <kbd>Enter</kbd> jump • <kbd>Esc</kbd> close</span>
+        </div>
+        <div id="search-results-list" class="search-results-box">
+          <div class="search-empty-state">Start typing to search all 5 account briefs and market intelligence...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Automated Diagnostics Modal -->
+  <div id="diagnostics-modal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="badge badge-emerald">SYSTEM DIAGNOSTICS</span>
+          <h3>Live Automated Endpoint Probes &amp; Health Check</h3>
+        </div>
+        <button class="btn-close" onclick="closeDiagnosticsModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-lead">Automated live HTTP checks against all system endpoints, static assets, and company briefs:</p>
+        <div class="diagnostics-log-box" id="diagnostics-log-box">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="runInBrowserDiagnostics()">↺ Re-Probe All</button>
+        <button class="btn btn-secondary" onclick="closeDiagnosticsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Executive Presentation Slide Deck Modal -->
+  <div id="presentation-modal" class="modal-backdrop" style="display: none;" onclick="handlePresentationBackdropClick(event)">
+    <div class="modal-card modal-presentation-card" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="badge badge-indigo" id="pres-modal-badge">SLIDE DECK</span>
+          <h3 id="pres-modal-header-title">Executive 90-Second Interview Presentation</h3>
+        </div>
+        <button class="btn-close" onclick="closePresentationModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 1.5rem;">
+        <div class="presentation-slide-canvas" id="presentation-canvas">
+          <!-- Slide Content Injected by JS -->
+        </div>
+
+        <!-- Presentation Navigation Row -->
+        <div class="presentation-nav-row">
+          <button class="btn btn-outline btn-sm" onclick="prevSlide()" id="btn-pres-prev">
+            ← Previous Slide
+          </button>
+          <div class="slide-dots-group" id="pres-slide-dots">
+            <!-- Slide Dots Injected by JS -->
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="nextSlide()" id="btn-pres-next">
+            Next Slide →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>Built with Clay AI (Claygent) • 100% Fact-Checked with the Direct &amp; Verify Framework • Handshake AI Showcase Mission</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

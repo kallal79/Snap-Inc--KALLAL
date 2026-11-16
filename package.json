@@ -1,0 +1,27 @@
+{
+  "name": "90-second-account-brief",
+  "version": "1.0.0",
+  "description": "90-Second Account Brief builder and verification engine using Clay AI and Direct & Verify methodology for Handshake Showcase",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/brief.test.js",
+    "check:all": "node scripts/verify-all.js",
+    "fetch:all": "node scripts/fetch-all.js",
+    "rehearse": "node scripts/rehearse.js",
+    "quiz": "node scripts/quiz.js",
+    "auto:run": "node scripts/auto-runner.js"
+  },
+  "keywords": [
+    "account-brief",
+    "clay",
+    "claygent",
+    "handshake",
+    "interview-prep",
+    "direct-and-verify",
+    "ai-research"
+  ],
+  "author": "Handshake AI Mission Builder",
+  "license": "MIT"
+}
+
